@@ -1,0 +1,50 @@
+*.suo
+*.cache
+**/.vs
+**/packages
+**/bin
+**/obj
+**/obj_
+*.csproj.user
+*.exe
+*.pdb
+*.dll.config
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+
+# Visual Studio Code
+.vscode
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Visual Studio 2015
+.vs/
+*.user
+*.user
+GOCTech/wwwroot/js/sitejs_ginie.min.js
+GOCTech/wwwroot/js/sitejs.min.js
+GOCTech/wwwroot/js/sitejs.min.js
+GOCTech/wwwroot/js/sitejs_ginie.min.js
+/GOCTech/wwwroot/ImageStorage/abb9fe2e-83a4-4903-ba7d-c5d54db485a5-images.jpeg
