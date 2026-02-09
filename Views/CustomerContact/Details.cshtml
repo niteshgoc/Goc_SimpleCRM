@@ -1,0 +1,90 @@
+@model SimpleCRM.Models.CustomerContact.CustomerContactResponse
+
+@{
+    ViewData["Title"] = "Customer Contact Details";
+}
+
+<div class="container mt-4">
+    <div class="row mb-3">
+        <div class="col-12">
+            <h2>Customer Contact Details</h2>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Contact ID</dt>
+                <dd class="col-sm-9">@Model.Id</dd>
+
+                <dt class="col-sm-3">Customer</dt>
+                <dd class="col-sm-9">
+                    @if (!string.IsNullOrEmpty(Model.CustomerName))
+                    {
+                        <span>@Model.CustomerName</span>
+                        @if (!string.IsNullOrEmpty(Model.CustomerCode))
+                        {
+                            <span class="text-muted">(@Model.CustomerCode)</span>
+                        }
+                    }
+                    else
+                    {
+                        <span class="text-muted">N/A</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-3">Mobile Number</dt>
+                <dd class="col-sm-9">@(Model.MobileNo ?? "N/A")</dd>
+
+                <dt class="col-sm-3">Phone Number</dt>
+                <dd class="col-sm-9">@(Model.PhoneNumber ?? "N/A")</dd>
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">
+                    @if (!string.IsNullOrEmpty(Model.Email))
+                    {
+                        <a href="mailto:@Model.Email">@Model.Email</a>
+                    }
+                    else
+                    {
+                        <span class="text-muted">N/A</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-3">Address</dt>
+                <dd class="col-sm-9">@(Model.FullAddress ?? "N/A")</dd>
+
+                <dt class="col-sm-3">City</dt>
+                <dd class="col-sm-9">@(Model.City ?? "N/A")</dd>
+
+                <dt class="col-sm-3">State</dt>
+                <dd class="col-sm-9">@(Model.State ?? "N/A")</dd>
+
+                <dt class="col-sm-3">Status</dt>
+                <dd class="col-sm-9">
+                    <span class="badge bg-@(Model.IsActive ? "success" : "secondary")">
+                        @Model.Status
+                    </span>
+                </dd>
+
+                <dt class="col-sm-3">Created Date</dt>
+                <dd class="col-sm-9">@Model.CreatedDate.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                @if (Model.UpdatedDate.HasValue)
+                {
+                    <dt class="col-sm-3">Last Updated</dt>
+                    <dd class="col-sm-9">@Model.UpdatedDate.Value.ToString("yyyy-MM-dd HH:mm")</dd>
+                }
+            </dl>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Back to List
+        </a>
+        <a asp-action="Index" asp-route-id="@Model.Id" class="btn btn-primary">
+            <i class="bi bi-pencil"></i> Edit
+        </a>
+    </div>
+</div>
