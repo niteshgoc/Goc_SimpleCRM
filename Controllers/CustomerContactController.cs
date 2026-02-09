@@ -12,10 +12,14 @@ namespace SimpleCRM.Controllers
     public class CustomerContactController : Controller
     {
         private readonly ICustomerContactRepository _customerContactRepository;
+        private readonly IStateRepository _stateRepository;
 
-        public CustomerContactController(ICustomerContactRepository customerContactRepository)
+        public CustomerContactController(
+            ICustomerContactRepository customerContactRepository,
+            IStateRepository stateRepository)
         {
             _customerContactRepository = customerContactRepository;
+            _stateRepository = stateRepository;
         }
 
         // ==================== MVC VIEW ACTIONS ====================
@@ -193,6 +197,23 @@ namespace SimpleCRM.Controllers
             }
 
             var result = await _customerContactRepository.SoftDeleteAsync(request.Id);
+
+            return Json(new ServiceResponse
+            {
+                IsSuccess = result.IsSuccess,
+                Message = result.Message,
+                Data = result.Data
+            });
+        }
+
+        /// <summary>
+        /// GET API: /CustomerContact/GetStatesList
+        /// Get all active states as JSON for dropdown
+        /// </summary>
+        [HttpGet]
+        public async Task<IActionResult> GetStatesList()
+        {
+            var result = await _stateRepository.GetActiveAsync();
 
             return Json(new ServiceResponse
             {

@@ -29,8 +29,7 @@ namespace SimpleCRM.Models.CustomerContact
         [StringLength(100, ErrorMessage = "City cannot exceed 100 characters")]
         public string? City { get; set; }
 
-        [StringLength(100, ErrorMessage = "State cannot exceed 100 characters")]
-        public string? State { get; set; }
+        public int? State { get; set; }
 
         [StringLength(100, ErrorMessage = "Phone number cannot exceed 100 characters")]
         public string? PhoneNumber { get; set; }

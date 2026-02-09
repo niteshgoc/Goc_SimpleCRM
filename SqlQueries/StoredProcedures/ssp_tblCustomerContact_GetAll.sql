@@ -19,6 +19,7 @@ BEGIN
             cc.[Email],
             cc.[City],
             cc.[State],
+            s.[StateName],
             cc.[PhoneNumber],
             cc.[IsActive],
             cc.[CreatedBy],
@@ -26,10 +27,11 @@ BEGIN
             cc.[UpdatedBy],
             cc.[UpdatedDate],
             -- Join with Customer table for additional context
-            c.[CustomerName],
-            c.[CustomerCode]
+            c.[CompanyName] as CustomerName,
+            c.[Email] as CustomerCode
         FROM [dbo].[tblCustomerContact] cc
-        LEFT JOIN [dbo].[tblCustomer] c ON cc.[CustomerId] = c.[Id]
+        LEFT JOIN [dbo].[Customer] c ON cc.[CustomerId] = c.[Id]
+        LEFT JOIN [dbo].[tblState] s ON cc.[State] = s.[Id]
         WHERE
             (@CustomerId IS NULL OR cc.[CustomerId] = @CustomerId)
             AND (@IsActive IS NULL OR cc.[IsActive] = @IsActive)
