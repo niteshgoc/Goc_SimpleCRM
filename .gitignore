@@ -38,13 +38,3 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
-
-# Visual Studio 2015
-.vs/
-*.user
-*.user
-GOCTech/wwwroot/js/sitejs_ginie.min.js
-GOCTech/wwwroot/js/sitejs.min.js
-GOCTech/wwwroot/js/sitejs.min.js
-GOCTech/wwwroot/js/sitejs_ginie.min.js
-/GOCTech/wwwroot/ImageStorage/abb9fe2e-83a4-4903-ba7d-c5d54db485a5-images.jpeg

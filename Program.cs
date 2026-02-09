@@ -9,6 +9,7 @@ builder.Services.AddSingleton<DapperContext>();
 
 // Register repositories
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerContactRepository, CustomerContactRepository>();
 
 builder.Services.AddControllersWithViews();
 
