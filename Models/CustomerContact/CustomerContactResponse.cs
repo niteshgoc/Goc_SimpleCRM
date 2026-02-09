@@ -12,7 +12,8 @@ namespace SimpleCRM.Models.CustomerContact
         public string? Address { get; set; }
         public string? Email { get; set; }
         public string? City { get; set; }
-        public string? State { get; set; }
+        public int? State { get; set; }
+        public string? StateName { get; set; }
         public string? PhoneNumber { get; set; }
         public bool IsActive { get; set; }
         public int? CreatedBy { get; set; }
@@ -26,8 +27,8 @@ namespace SimpleCRM.Models.CustomerContact
 
         // Computed properties
         public string Status => IsActive ? "Active" : "Inactive";
-        public string FullAddress => !string.IsNullOrEmpty(City) && !string.IsNullOrEmpty(State)
-            ? $"{Address}, {City}, {State}"
+        public string FullAddress => !string.IsNullOrEmpty(City) && !string.IsNullOrEmpty(StateName)
+            ? $"{Address}, {City}, {StateName}"
             : Address ?? string.Empty;
     }
 }

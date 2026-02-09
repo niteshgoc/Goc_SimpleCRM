@@ -4,6 +4,7 @@
 
     let customerContacts = [];
     let customers = [];
+    let states = [];
     let customerContactModal, deleteModal;
 
     // Initialize on page load
@@ -11,6 +12,7 @@
         initializeModals();
         loadCustomerContactsFromHiddenModel();
         loadCustomers();
+        loadStates();
         renderCustomerContactTable();
         bindEvents();
     });
@@ -62,6 +64,34 @@
         });
     }
 
+    // Load states for dropdown
+    function loadStates() {
+        $.ajax({
+            url: '/CustomerContact/GetStatesList',
+            type: 'GET',
+            success: function (response) {
+                if (response.isSuccess) {
+                    states = response.data;
+                    populateStateDropdown();
+                }
+            },
+            error: function () {
+                showToaster('Error loading states', 'error');
+            }
+        });
+    }
+
+    // Populate state dropdown
+    function populateStateDropdown() {
+        const dropdown = $('#state');
+        dropdown.empty();
+        dropdown.append('<option value="">Select State</option>');
+
+        states.forEach(state => {
+            dropdown.append(`<option value="${state.id}">${escapeHtml(state.stateName)}</option>`);
+        });
+    }
+
     // Render customer contact table
     function renderCustomerContactTable() {
         const tbody = $('#customerContactTableBody');
@@ -84,7 +114,7 @@
                     <td>${escapeHtml(contact.mobileNo || '-')}</td>
                     <td>${escapeHtml(contact.email || '-')}</td>
                     <td>${escapeHtml(contact.city || '-')}</td>
-                    <td>${escapeHtml(contact.state || '-')}</td>
+                    <td>${escapeHtml(contact.stateName || '-')}</td>
                     <td>${statusBadge}</td>
                     <td>
                         <button class="btn btn-sm btn-info btn-view" data-id="${contact.id}" title="View">
@@ -194,6 +224,7 @@
             return;
         }
 
+        const stateValue = $('#state').val();
         const contactData = {
             id: parseInt($('#contactId').val()),
             customerId: parseInt($('#customerId').val()),
@@ -202,7 +233,7 @@
             phoneNumber: $('#phoneNumber').val().trim() || null,
             address: $('#address').val().trim() || null,
             city: $('#city').val().trim() || null,
-            state: $('#state').val().trim() || null,
+            state: stateValue ? parseInt(stateValue) : null,
             isActive: $('#isActive').is(':checked')
         };
 

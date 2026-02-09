@@ -10,7 +10,7 @@ CREATE OR ALTER PROCEDURE [dbo].[ssp_tblCustomerContact_InsertUpdate]
     @Address VARCHAR(100) = NULL,
     @Email VARCHAR(100) = NULL,
     @City VARCHAR(100) = NULL,
-    @State VARCHAR(100) = NULL,
+    @State INT = NULL,
     @PhoneNumber VARCHAR(100) = NULL,
     @IsActive BIT = 1,
     @CreatedBy INT = NULL,
@@ -86,7 +86,7 @@ GO
 -- EXEC ssp_tblCustomerContact_InsertUpdate
 --      @Id = 0, @CustomerId = 1, @MobileNo = '9876543210',
 --      @Address = '123 Main St', @Email = 'john@example.com',
---      @City = 'Mumbai', @State = 'Maharashtra', @PhoneNumber = '022-12345678',
+--      @City = 'Mumbai', @State = 1, @PhoneNumber = '022-12345678',
 --      @CreatedBy = 1
 
 -- UPDATE:
