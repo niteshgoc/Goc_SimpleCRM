@@ -22,16 +22,15 @@ Parse `$ARGUMENTS` to get the following values:
 ## Standards Reference
 
 - Controller creation **must follow instructions defined in**:
-  - `docs/views-controllers.md`
+  - `/.claude/docs/views-controllers.md`
 - Routing, naming, and action patterns must strictly comply with documented standards.
 
 ## Rules
 
-- Model must exist in `/SqlQueries/Tables/`
 - Controllers must be created under `Controllers/`
 - Controller class name must end with `Controller`
 - Controller must depend on the corresponding **Service**, not Repository
-- Use attribute routing as defined in `docs/views-controllers.md`
+- Use attribute routing as defined in `/.claude/docs/views-controllers.md`
 - Use async action methods
 - Use **create-or-update behavior**:
   - Create file if it does not exist
@@ -39,13 +38,20 @@ Parse `$ARGUMENTS` to get the following values:
 - Preserve existing custom logic unless explicitly instructed
 - Add or update XML documentation comments using the provided description
 
+## Dependency Handling
+
+- **If the model does not exist**: Proceed with placeholder types or `dynamic`
+- **If the service does not exist**: Include constructor injection with TODO comment
+- **If views or JS do not exist**: Generate controller actions anyway
+- **Never block execution** due to missing dependencies
+
 ## Task
 
-1. Validate that the model exists in `/SqlQueries/Tables/`
-2. Read controller rules from `docs/views-controllers.md`
+1. Check if the model exists in `/SqlQueries/Tables/` (optional reference)
+2. Read controller rules from `/.claude/docs/views-controllers.md`
 3. Resolve controller files using the provided path or pattern
-4. Inject the corresponding service via constructor
-5. Generate or update controller actions based on service methods
+4. Inject the corresponding service via constructor (with TODO if service doesn't exist)
+5. Generate or update controller actions based on expected service methods
 6. Save `.cs` files in `Controllers/`
 
 ## Example

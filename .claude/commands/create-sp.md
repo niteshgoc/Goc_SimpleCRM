@@ -12,7 +12,6 @@ Parse `$ARGUMENTS` to get the following values:
 
 ## Rules
 
-- Model must exist in `/SqlQueries/Tables/`
 - Stored Procedure name is auto-generated as:
   - `sp_{model_name}_save`
 - Use `CREATE OR ALTER PROCEDURE`
@@ -22,10 +21,15 @@ Parse `$ARGUMENTS` to get the following values:
 - Generate a `.sql` file in `/SqlQueries/Tables/sp/`
 - File name must match the stored procedure name
 
+## Dependency Handling
+
+- **If the table does not exist**: Infer structure from model name or prompt user for columns
+- **Never block execution** due to missing table definition
+
 ## Task
 
-1. Validate that the model exists in `/SqlQueries/Tables/`
-2. Read column definitions from the model SQL
+1. Check if the model exists in `/SqlQueries/Tables/` (optional reference)
+2. Read column definitions from the model SQL (if available)
 3. Generate parameters for all columns except auto-increment PK
 4. Create a `CREATE OR ALTER PROCEDURE`
 5. Implement:

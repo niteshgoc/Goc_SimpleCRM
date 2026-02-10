@@ -7,18 +7,18 @@ argument-hint: feature_name | description
 
 Parse `$ARGUMENTS` to get the following values:
 
-- `[feature_name]`: Name of the feature (must match a `.md` file in `docs/features/`)
+- `[feature_name]`: Name of the feature (must match a `.md` file in `/.claude/docs/features/`)
 - `[description]`: Purpose or summary of the feature
 
 ## Feature Source
 
 - Feature instructions must be read from:
-  - `docs/features/{feature_name}.md`
+  - `/.claude/docs/features/{feature_name}.md`
 - This file is the **single source of truth** for the feature behavior.
 
 ## Rules
 
-- Feature file **must exist** in `docs/features/`
+- Feature file **must exist** in `/.claude/docs/features/`
 - The command must **not guess or invent behavior**
 - All changes must strictly follow the instructions in the feature MD
 - Use **add-or-update behavior**:
@@ -30,7 +30,7 @@ Parse `$ARGUMENTS` to get the following values:
 
 ## Task
 
-1. Validate that `docs/features/{feature_name}.md` exists
+1. Validate that `/.claude/docs/features/{feature_name}.md` exists
 2. Read and understand feature instructions
 3. Identify required changes (e.g.):
    - Database changes

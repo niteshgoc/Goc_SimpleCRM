@@ -22,12 +22,11 @@ Parse `$ARGUMENTS` to get the following values:
 ## Standards Reference
 
 - View creation **must follow instructions defined in**:
-  - `docs/views-controllers.md`
+  - `/.claude/docs/views-controllers.md`
 - Layout usage, naming conventions, and Razor syntax must strictly comply with documented standards.
 
 ## Rules
 
-- Model must exist in `/SqlQueries/Tables/`
 - Views must be created under `Views/`
 - This command generates **ONLY Razor Views**
 - No controller logic is generated or modified
@@ -38,13 +37,19 @@ Parse `$ARGUMENTS` to get the following values:
 - Preserve custom Razor logic unless explicitly instructed
 - Add header comments using the provided description
 
+## Dependency Handling
+
+- **If the model does not exist**: Use `dynamic` or `ViewData` with TODO comment
+- **If the controller does not exist**: Generate view structure anyway
+- **Never block execution** due to missing dependencies
+
 ## Task
 
-1. Validate that the model exists in `/SqlQueries/Tables/`
-2. Read view standards from `docs/views-controllers.md`
+1. Check if the model exists in `/SqlQueries/Tables/` (optional reference)
+2. Read view standards from `/.claude/docs/views-controllers.md`
 3. Resolve view files using the provided path or pattern
 4. Generate or update Razor view markup:
-   - Model declaration (`@model`)
+   - Model declaration (`@model`) or fallback to `dynamic`
    - Layout usage
    - Basic structure (table/form/details as applicable)
 5. Save `.cshtml` files in `Views/`

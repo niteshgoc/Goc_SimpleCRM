@@ -46,7 +46,7 @@ dotnet clean
 - **`Data/`** — Database context (DapperContext for SQL connection)
 - **`SqlQueries/`** — SQL scripts for tables and stored procedures
 - **`wwwroot/`** — Static files (CSS, JS, Bootstrap, jQuery)
-- **`docs/`** — Detailed documentation (patterns, conventions, examples)
+- **`.claude/.claude/docs/`** — Detailed documentation (patterns, conventions, examples)
 
 ### Data Flow
 1. **User Request** → Controller action
@@ -62,6 +62,15 @@ dotnet clean
 - **Repositories**: Interface + implementation pattern, all methods async with `Task<ServiceResponse<T>>`
 - **Stored Procedures**: All CRUD operations use stored procedures prefixed with `ssp_`
 
+## Database Connectivity & Access Policy
+
+**📋 IMPORTANT:** All database connectivity and access rules are defined in [`.claude/dbpolicy/Connection.md`](.claude/dbpolicy/Connection.md).
+
+**You MUST:**
+- Read and fully comply with `.claude/dbpolicy/Connection.md`
+- Treat that file as the single source of truth for all database-related behavior
+- Strictly follow all rules defined in that file for database operations
+
 ## Coding Patterns
 
 ### Models (3-Model Pattern)
@@ -70,7 +79,7 @@ For each database table, create 3 models in `Models/[Entity]/`:
 2. **EntityRequest.cs** — For Insert/Update (includes validation attributes)
 3. **EntityResponse.cs** — For API/View responses (can include computed properties)
 
-See [docs/models.md](docs/models.md) for detailed patterns.
+See [.claude/docs/models.md](.claude/docs/models.md) for detailed patterns.
 
 ### Repositories
 - Interface in `Repos/Interfaces/I[Entity]Repository.cs`
@@ -78,7 +87,7 @@ See [docs/models.md](docs/models.md) for detailed patterns.
 - All methods return `Task<ServiceResponse<T>>`
 - Standard CRUD: InsertUpdate, GetActive, GetById, GetAll, Delete, SoftDelete
 
-See [docs/repositories.md](docs/repositories.md) for detailed patterns.
+See [.claude/docs/repositories.md](.claude/docs/repositories.md) for detailed patterns.
 
 ### Controllers & Views (Single Page CRUD)
 - **2 MVC actions**: Index() for list page, Details(id) for details
@@ -86,7 +95,7 @@ See [docs/repositories.md](docs/repositories.md) for detailed patterns.
 - **2 Razor views**: Index.cshtml (list + modals), Details.cshtml
 - All CRUD operations via AJAX, no page reload
 
-See [docs/views-controllers.md](docs/views-controllers.md) for detailed patterns.
+See [.claude/docs/views-controllers.md](.claude/docs/views-controllers.md) for detailed patterns.
 
 ### Database
 - Connection string in `appsettings.json` under `ConnectionStrings:DefaultConnection`
@@ -94,7 +103,7 @@ See [docs/views-controllers.md](docs/views-controllers.md) for detailed patterns
 - All SQL in stored procedures (no inline SQL)
 - Stored procedure naming: `ssp_[TableName]_[Action]`
 
-See [docs/database.md](docs/database.md) for detailed database conventions.
+See [.claude/docs/database.md](.claude/docs/database.md) for detailed database conventions.
 
 ### Frontend
 - jQuery for AJAX and DOM manipulation
@@ -102,16 +111,46 @@ See [docs/database.md](docs/database.md) for detailed database conventions.
 - Client-side validation (email, phone, required fields)
 - Toaster notifications for success/error feedback
 
-See [docs/frontend.md](docs/frontend.md) for detailed JavaScript patterns.
+See [.claude/docs/frontend.md](.claude/docs/frontend.md) for detailed JavaScript patterns.
 
 ## Documentation
 
-Detailed documentation is located in the `docs/` folder:
-- **[models.md](docs/models.md)** — Model structure and naming conventions
-- **[repositories.md](docs/repositories.md)** — Repository pattern and Dapper usage
-- **[views-controllers.md](docs/views-controllers.md)** — Controller structure and Razor view patterns
-- **[database.md](docs/database.md)** — Database schema, stored procedures, SQL conventions
-- **[frontend.md](docs/frontend.md)** — JavaScript, validation, AJAX patterns
+Detailed documentation is located in the `.claude/docs/` folder:
+- **[models.md](.claude/docs/models.md)** — Model structure and naming conventions
+- **[repositories.md](.claude/docs/repositories.md)** — Repository pattern and Dapper usage
+- **[views-controllers.md](.claude/docs/views-controllers.md)** — Controller structure and Razor view patterns
+- **[database.md](.claude/docs/database.md)** — Database schema, stored procedures, SQL conventions
+- **[frontend.md](.claude/docs/frontend.md)** — JavaScript, validation, AJAX patterns
+
+## Flexible Creation Order
+
+**IMPORTANT:** Layer creation order is **RECOMMENDED, NOT REQUIRED**.
+
+### Recommended Order (for new features)
+Table → Stored Procedures → Models → Repository → Service → Controller → View → JavaScript
+
+### Execution Independence Rules
+- **Any slash command can be executed independently** at any time
+- **Controllers can be created first**, even if models, services, or views don't exist yet
+- **Views can be created** without controllers
+- **JavaScript can be created** without views
+- **Services can be created** without repositories
+- Missing dependencies result in:
+  - TODO comments
+  - Placeholder code
+  - Minimal compile-ready stubs
+- **Never block execution** due to missing dependencies
+
+### What Commands Do NOT Do
+- Creating a controller **does NOT** auto-create models, views, or JavaScript
+- Creating a view **does NOT** auto-create controllers or JavaScript
+- Creating models **does NOT** auto-create repositories or services
+- Each command creates **ONLY** the requested artifact
+
+### Documentation Role
+- Files in `.claude/docs/` define **HOW** to write code (structure, patterns, conventions)
+- Documentation is **NOT** a prerequisite for execution
+- Documentation guides style, NOT permission
 
 ## Important Notes
 

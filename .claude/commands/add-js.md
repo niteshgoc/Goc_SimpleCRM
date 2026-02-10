@@ -21,7 +21,7 @@ Parse `$ARGUMENTS` to get the following values:
 ## Standards Reference
 
 - JavaScript creation **must follow instructions defined in**:
-  - `Docs/frontend.md`
+  - `/.claude/docs/frontend.md`
 - Coding style, structure, naming, and patterns must strictly comply with documented frontend standards.
 
 ## Rules
@@ -32,7 +32,7 @@ Parse `$ARGUMENTS` to get the following values:
   - Create file if it does not exist
   - Update file if it already exists
 - Do not include inline HTML or Razor syntax
-- Follow patterns defined in `Docs/frontend.md`:
+- Follow patterns defined in `/.claude/docs/frontend.md`:
   - jQuery / AJAX usage (if specified)
   - Modular functions
   - Event binding standards
@@ -41,7 +41,7 @@ Parse `$ARGUMENTS` to get the following values:
 
 ## Task
 
-1. Read JavaScript standards from `Docs/frontend.md`
+1. Read JavaScript standards from `/.claude/docs/frontend.md`
 2. Resolve JS files using the provided path or pattern
 3. Generate or update JavaScript structure:
    - Namespace or module pattern

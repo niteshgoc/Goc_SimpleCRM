@@ -22,16 +22,15 @@ Parse `$ARGUMENTS` to get the following values:
 ## Standards Reference
 
 - Interface creation **must follow instructions defined in**:
-  - `docs/repositories.md`
+  - `/.claude/docs/repositories.md`
 - Naming, method signatures, and structure must strictly comply with documented repository standards.
 
 ## Rules
 
-- Model must exist in `/SqlQueries/Tables/`
 - Interfaces must be created under `Repo/Interfaces/`
 - Interface name must start with `I`
 - One interface per model
-- Repository methods must follow CRUD standards defined in `docs/repositories.md`
+- Repository methods must follow CRUD standards defined in `/.claude/docs/repositories.md`
 - Use async method signatures (`Task`, `Task<T>`)
 - Use **create-or-update behavior**:
   - Create file if it does not exist
@@ -39,12 +38,17 @@ Parse `$ARGUMENTS` to get the following values:
 - Do not remove existing custom methods unless explicitly instructed
 - Add or update XML documentation comments using the provided description
 
+## Dependency Handling
+
+- **If the model does not exist**: Use generic types (`T`) or `object` with TODO comment
+- **Never block execution** due to missing dependencies
+
 ## Task
 
-1. Validate that the model exists in `/SqlQueries/Tables/`
-2. Read repository rules from `docs/repositories.md`
+1. Check if the model exists in `/SqlQueries/Tables/` (optional reference)
+2. Read repository rules from `/.claude/docs/repositories.md`
 3. Resolve interface files using the provided path or pattern
-4. Infer CRUD operations from the model schema
+4. Infer CRUD operations from standard patterns or model schema (if available)
 5. **Create or update** repository interface methods as per documented standards
 6. Save `.cs` files in `Repo/Interfaces/`
 
